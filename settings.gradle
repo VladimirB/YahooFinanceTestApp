@@ -2,3 +2,4 @@ rootProject.name = "YahooFinanceTestApp"
 include ':app'
 include ':domain'
 include ':data'
+include ':framework'
