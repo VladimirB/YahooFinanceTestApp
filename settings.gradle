@@ -1,2 +1,3 @@
 rootProject.name = "YahooFinanceTestApp"
 include ':app'
+include ':domain'
