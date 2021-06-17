@@ -1,4 +1,4 @@
-package com.yahoo.finance.test.domain
+package com.yahoo.finance.test.domain.model
 
 data class Stock(
     val symbol: String,
