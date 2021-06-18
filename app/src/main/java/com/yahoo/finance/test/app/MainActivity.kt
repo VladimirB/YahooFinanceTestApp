@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yahoo.finance.test.app.databinding.ActivityMainBinding
+import com.yahoo.finance.test.app.di.Injector
 import com.yahoo.finance.test.app.ui.StockRecyclerViewAdapter
 import com.yahoo.finance.test.domain.model.Stock
 
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Injector.install(this)
 
         initializeRecyclerView()
     }
