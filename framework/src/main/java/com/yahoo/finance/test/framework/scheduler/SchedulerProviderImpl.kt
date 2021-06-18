@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class SchedulerProviderImpl
 @Inject constructor() : SchedulerProvider {
-    
+
     override fun io(): Scheduler {
         return Schedulers.io()
     }
