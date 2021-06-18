@@ -4,11 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yahoo.finance.test.app.databinding.ActivityStockDetailsBinding
+import com.yahoo.finance.test.app.model.Event
+import com.yahoo.finance.test.app.viewmodel.StockViewModel
 
 class StockDetailsActivity : AppCompatActivity() {
 
@@ -25,6 +29,8 @@ class StockDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStockDetailsBinding
 
+    private lateinit var viewModel: StockViewModel
+
     private lateinit var marketDataAdapter: StockDataRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +39,12 @@ class StockDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val ticker = intent.getStringExtra(EXTRA_TICKER)
+            ?: throw IllegalStateException("Ticker should be specified to open this page")
         supportActionBar?.title = ticker
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         initializeRecyclerView()
+        initializeViewModel(ticker)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -56,5 +64,22 @@ class StockDetailsActivity : AppCompatActivity() {
             val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             addItemDecoration(divider)
         }
+    }
+
+    private fun initializeViewModel(ticker: String) {
+        viewModel = ViewModelProvider(this)[StockViewModel::class.java]
+        viewModel.stockDetails.observe(this, { event ->
+            when (event) {
+                is Event.Loading -> {
+                }
+                is Event.Success -> {
+
+                }
+                is Event.Failure -> {
+                    Toast.makeText(this, event.error?.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+        viewModel.loadStockDetails(ticker)
     }
 }
