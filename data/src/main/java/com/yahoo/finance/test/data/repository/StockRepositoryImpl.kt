@@ -20,7 +20,8 @@ class StockRepositoryImpl
     }
 
     override fun getStockDetails(ticker: String): Single<Stock> {
-        TODO("Not yet implemented")
+        return cache.getByTicker(ticker)
+            .toSingle()
     }
 
     private fun loadStocksFromBackend(tickers: List<String>): Single<List<Stock>> {
