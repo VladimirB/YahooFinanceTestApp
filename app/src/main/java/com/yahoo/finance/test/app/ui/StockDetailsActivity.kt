@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.yahoo.finance.test.app.databinding.ActivityStockDetailsBinding
 
 class StockDetailsActivity : AppCompatActivity() {
@@ -22,6 +25,8 @@ class StockDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStockDetailsBinding
 
+    private lateinit var marketDataAdapter: StockDataRecyclerViewAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStockDetailsBinding.inflate(layoutInflater)
@@ -30,6 +35,8 @@ class StockDetailsActivity : AppCompatActivity() {
         val ticker = intent.getStringExtra(EXTRA_TICKER)
         supportActionBar?.title = ticker
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        initializeRecyclerView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -38,5 +45,16 @@ class StockDetailsActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initializeRecyclerView() {
+        marketDataAdapter = StockDataRecyclerViewAdapter()
+        binding.recyclerView.apply {
+            adapter = marketDataAdapter
+            itemAnimator = DefaultItemAnimator()
+            layoutManager = LinearLayoutManager(context)
+            val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            addItemDecoration(divider)
+        }
     }
 }
