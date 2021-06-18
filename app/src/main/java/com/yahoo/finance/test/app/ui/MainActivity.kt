@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yahoo.finance.test.app.databinding.ActivityMainBinding
 import com.yahoo.finance.test.app.di.Injector
 import com.yahoo.finance.test.app.model.Event
-import com.yahoo.finance.test.app.ui.StockRecyclerViewAdapter
 import com.yahoo.finance.test.app.viewmodel.StockViewModel
 import com.yahoo.finance.test.domain.model.Stock
 
@@ -68,6 +67,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onStockClicked(stock: Stock) {
-
+        StockDetailsActivity.start(this, stock.symbol)
     }
 }
