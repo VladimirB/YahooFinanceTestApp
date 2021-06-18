@@ -11,15 +11,15 @@ class StockDataRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         private val binding: RecyclerItemStockDataBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(pair: Pair<String, String>) {
+        fun bind(pair: Pair<String, String?>) {
             binding.title.text = pair.first
             binding.value.text = pair.second
         }
     }
 
-    private var items: List<Pair<String, String>> = listOf()
+    private var items: List<Pair<String, String?>> = listOf()
 
-    fun setItems(items: List<Pair<String, String>>) {
+    fun setItems(items: List<Pair<String, String?>>) {
         this.items = items
         notifyDataSetChanged()
     }

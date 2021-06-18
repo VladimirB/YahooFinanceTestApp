@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yahoo.finance.test.app.R
 import com.yahoo.finance.test.app.databinding.ActivityStockDetailsBinding
 import com.yahoo.finance.test.app.model.Event
 import com.yahoo.finance.test.app.viewmodel.StockViewModel
+import com.yahoo.finance.test.domain.model.Stock
 
 class StockDetailsActivity : AppCompatActivity() {
 
@@ -73,7 +76,7 @@ class StockDetailsActivity : AppCompatActivity() {
                 is Event.Loading -> {
                 }
                 is Event.Success -> {
-
+                    event.data?.let { showMarketData(it) }
                 }
                 is Event.Failure -> {
                     Toast.makeText(this, event.error?.message, Toast.LENGTH_LONG).show()
@@ -81,5 +84,29 @@ class StockDetailsActivity : AppCompatActivity() {
             }
         })
         viewModel.loadStockDetails(ticker)
+    }
+
+    private fun showMarketData(stock: Stock) {
+        binding.stockName.text = stock.symbol
+        binding.companyName.text = stock.tickerShortName
+        binding.price.text = numberFormat.format(stock.price)
+
+        val change = numberFormat.format(stock.change) + " (" + stock.changePercentString + ")"
+        binding.change.text = change
+        if (stock.change > 0) {
+            binding.change.setTextColor(ContextCompat.getColor(this, R.color.positiveTextColor))
+        } else {
+            binding.change.setTextColor(ContextCompat.getColor(this, R.color.negativeTextColor))
+        }
+        
+        val pairs = listOf<Pair<String, String?>>(
+            "Open" to numberFormat.format(stock.open),
+            "High" to numberFormat.format(stock.high),
+            "Low" to numberFormat.format(stock.low),
+            "Previous Close" to numberFormat.format(stock.previousClose),
+            "Currency" to stock.currency,
+            "Exchange" to stock.exchangeName
+        )
+        marketDataAdapter.setItems(pairs)
     }
 }
