@@ -1,6 +1,5 @@
 package com.yahoo.finance.test.framework.di
 
-import android.content.Context
 import com.yahoo.finance.test.data.network.Backend
 import com.yahoo.finance.test.framework.network.BackendImpl
 import com.yahoo.finance.test.framework.network.RetrofitService
@@ -41,7 +40,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(context: Context): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient()
