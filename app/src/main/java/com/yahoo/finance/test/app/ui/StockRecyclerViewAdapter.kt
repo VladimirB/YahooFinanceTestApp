@@ -9,11 +9,6 @@ import com.yahoo.finance.test.app.databinding.RecyclerItemStockBinding
 import com.yahoo.finance.test.domain.model.Stock
 import java.text.NumberFormat
 
-private val numberFormat = NumberFormat.getNumberInstance().apply {
-    maximumFractionDigits = 2
-    minimumFractionDigits = 2
-}
-
 class StockRecyclerViewAdapter(
     private val onClickListener: ((Stock) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -56,7 +51,7 @@ class StockRecyclerViewAdapter(
             parent,
             false
         )
-        return ViewHolder(binding)
+        return ViewHolder(binding, onClickListener)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
