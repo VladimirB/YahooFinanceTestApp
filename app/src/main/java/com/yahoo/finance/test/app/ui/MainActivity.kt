@@ -1,4 +1,4 @@
-package com.yahoo.finance.test.app
+package com.yahoo.finance.test.app.ui
 
 import android.os.Bundle
 import android.view.View
