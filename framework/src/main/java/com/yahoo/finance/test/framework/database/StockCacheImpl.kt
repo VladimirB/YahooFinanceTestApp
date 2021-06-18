@@ -21,6 +21,11 @@ class StockCacheImpl
             }
     }
 
+    override fun getByTicker(ticker: String): Maybe<Stock> {
+        return dao.getByTicker(ticker)
+            .map { it.toStock() }
+    }
+
     override fun save(stock: Stock): Single<Long> {
         return dao.insert(stock.toStockLocal())
     }

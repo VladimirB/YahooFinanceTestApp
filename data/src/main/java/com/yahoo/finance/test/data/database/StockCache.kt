@@ -8,5 +8,7 @@ interface StockCache {
 
     fun getAll(): Maybe<List<Stock>>
 
+    fun getByTicker(ticker: String): Maybe<Stock>
+
     fun save(stock: Stock): Single<Long>
 }
