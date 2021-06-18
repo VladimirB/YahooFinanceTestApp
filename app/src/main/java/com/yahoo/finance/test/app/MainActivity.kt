@@ -15,7 +15,7 @@ import com.yahoo.finance.test.app.ui.StockRecyclerViewAdapter
 import com.yahoo.finance.test.app.viewmodel.StockViewModel
 import com.yahoo.finance.test.domain.model.Stock
 
-private val testTickers = listOf("GOOG", "MSFT", "TWTR", "NVDA", "PYPL")
+private val testTickers = listOf("GOOG", "MSFT", "TWTR", "NVDA", "PYPL", "AAPL", "AMD", "AMZN", "INTC", "DIS")
 
 class MainActivity : AppCompatActivity() {
 
