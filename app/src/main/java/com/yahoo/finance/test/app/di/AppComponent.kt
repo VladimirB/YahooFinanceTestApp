@@ -1,5 +1,6 @@
 package com.yahoo.finance.test.app.di
 
+import com.yahoo.finance.test.app.viewmodel.StockViewModel
 import com.yahoo.finance.test.data.di.RepositoryModule
 import com.yahoo.finance.test.domain.di.InteractorModule
 import com.yahoo.finance.test.framework.di.DatabaseModule
@@ -15,4 +16,5 @@ import dagger.Component
         DatabaseModule::class]
 )
 interface AppComponent {
+    fun inject(viewModel: StockViewModel)
 }
